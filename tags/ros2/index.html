@@ -429,6 +429,306 @@
             
         
         <article class="index-post">
+            <a class="abstract-title" href="/2024/11/02/sentry-localization/sentry-localization-0/">
+                
+                <span class="abstract-title-text">哨兵定位建图简明教程一 卷首引言</span>
+            </a>
+            <div class="abstract-content">
+                嗟叹岁月我是2024赛季Alliance的哨兵定位负责人，大三已至，想来是没有多少时日投入到战队中，是时候留下一些文字，以便后辈学习。
+还记得那是一次全体大会后的组内小会，那时视觉组组长覃某稍稍列举了有哪些项目需要分配，有雷达，哨兵定位导航，大符等，一人一个项目，尽数分配出去。
+现在想想，一个人几乎从零开始打通雷达，定位，导航这种方量级的方案，几近天方夜谭，别的战队那是一整个组别在研发，我们只有单枪匹马。
+我入队之时，队长覃某便放任我们几人生长，成体系的教程是完全没有的，有的只是一个数年Cpp开发经验的覃某可以追着问一些Cpp问题，剩下的，只能靠自己寻找搜索了。
+庞然巨影刚接触 SLAM...
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2024/11/02">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2024/11/02</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="ros2">ros2</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="c/cpp">c/cpp</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="robomaster">robomaster</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+        
+        <article class="index-post">
+            <a class="abstract-title" href="/2024/11/02/sentry-localization/sentry-localization-1/">
+                
+                <span class="abstract-title-text">哨兵定位建图简明教程二 你需要了解的</span>
+            </a>
+            <div class="abstract-content">
+                目的导向我们的目的是让哨兵知道自己处于赛场的哪个位置，为此，我们使用SLAM，SLAM的全称是同时定位与建图构建，这意味着随着传感器持续地扫描，SLAM项目可以算出机器人相对于程序开始那一刻机器人所处的平移量和旋转量，同时还可以获得周遭的二维或者三维地图。
+这里便引出一个问题，SLAM程序求出的是相对于起始点的位姿，那么我们怎么获得机器人在比赛场地的绝对位姿呢，答案有两个：
+一个是在比赛开始时将哨兵准确无误地放置在一个固定位置，这样我们便可以用这个固定位姿换算出绝对位姿；
+另一个是提前把比赛场地的地图建好（比赛前会单独提供一个时间段给哨兵建图），然后手动指定地图的原点，哨兵比赛时只需要讲...
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2024/11/02">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2024/11/02</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="ros2">ros2</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="c/cpp">c/cpp</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="robomaster">robomaster</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+        
+        <article class="index-post">
+            <a class="abstract-title" href="/2024/11/02/sentry-localization/sentry-localization-2/">
+                
+                <span class="abstract-title-text">哨兵定位建图简明教程三 前情提要</span>
+            </a>
+            <div class="abstract-content">
+                现代Cpp开发在开始之前，我们需要了解一个标准的cmake项目是如何构建的。
+请先查看这篇教程配置好相关环境：cpp系开发环境配置
+CPP的基础知识请自行学习，本篇教程默认读者掌握一定CPP基础。
+开源机器人框架首先需要明确的是，我们的机器人运行在ubuntu server上，通过docker虚拟出一个ros-humble的环境。
+如何利用docker开发ros2请见这篇文章：TODO
+雷达，这就是你看到的世界吗我们有三个选择：
+
+一个现代而兼具美感的ROS2可视化平台，Foxglove，但是连接不稳定，消息带宽有瓶颈
+
+稳定的原生ROS2可视化工具 RVIZ2，可是不现代，不好看
+
+拿...
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2024/11/02">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2024/11/02</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="ros2">ros2</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="c/cpp">c/cpp</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="robomaster">robomaster</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+        
+        <article class="index-post">
+            <a class="abstract-title" href="/2024/11/02/sentry-localization/sentry-localization-3/">
+                
+                <span class="abstract-title-text">哨兵定位建图简明教程四 你的SLAM首选，FAST-LIO</span>
+            </a>
+            <div class="abstract-content">
+                仓库介绍原版fast-lio代码风格糟糕，虽然它效果好，抗旋转，消耗小，但一旦要去进行个性化地修改，比如添加一个service使其进行程序内重启，或者添加初始位姿设定等，便会感到万般无奈，大量无效变量和调试用变量充斥其中，全局变量一层套一层，using namespace std 惊现其中，于是乎，我愤然将其重构，重命名为 rmcs-slam，供我们战队使用。
+这是仓库地址：Alliance-Algorithm&#x2F;rmcs_slam
+该如何部署下载mid-360的驱动程序
+首先是 livox-sdk2，这是该激光雷达的底层驱动，安装教程看这里
+
+下一步安装 livox-ros-d...
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2024/11/02">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2024/11/02</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="ros2">ros2</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="c/cpp">c/cpp</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="robomaster">robomaster</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+        
+        <article class="index-post">
+            <a class="abstract-title" href="/2024/11/02/sentry-localization/sentry-localization-5/">
+                
+                <span class="abstract-title-text">哨兵定位建图简明教程六 我与你不过是TF树上的两个节点</span>
+            </a>
+            <div class="abstract-content">
+                
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2024/11/02">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2024/11/02</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="ros2">ros2</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="c/cpp">c/cpp</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="robomaster">robomaster</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+        
+        <article class="index-post">
+            <a class="abstract-title" href="/2024/11/02/sentry-localization/sentry-localization-4/">
+                
+                <span class="abstract-title-text">哨兵定位建图简明教程五 二次开发，你需要升级的技能点</span>
+            </a>
+            <div class="abstract-content">
+                你无法逃脱的线性代数
+知名线性代数库 Eigen，重度模板元优化，恐怖的报错地狱，你将在这里体会到一处BUG百行报错，想要良好地使用Cpp描述哨兵的运动和位姿，这是你不得不跨越的门槛。
+
+上述引言并非夸大其词，但实际上 Eigen 用起来挺好使的，你想怎么乘，只要符合线性代数规律，它都能给出正确答案
+点云界的PS，Point Cloud Library
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2024/11/02">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2024/11/02</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="ros2">ros2</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="c/cpp">c/cpp</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="robomaster">robomaster</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+        
+        <article class="index-post">
+            <a class="abstract-title" href="/2024/11/02/sentry-localization/sentry-localization-6/">
+                
+                <span class="abstract-title-text">哨兵定位建图简明教程七 拒绝定点投放，我们使用重定位</span>
+            </a>
+            <div class="abstract-content">
+                
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2024/11/02">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2024/11/02</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="ros2">ros2</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="c/cpp">c/cpp</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="robomaster">robomaster</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+        
+        <article class="index-post">
             <a class="abstract-title" href="/2024/06/10/referee-develop/">
                 
                 <span class="abstract-title-text">裁判系统交互开发引导</span>
@@ -693,7 +993,105 @@
         
         
         
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
     
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         
@@ -728,7 +1126,7 @@
     
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 7
+        Total : 15
         </div>
         <!-- search  -->
         
@@ -742,6 +1140,54 @@
             <div class="archive-year"> 2024 </div>
             <ul class="year-list">
             
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/02</span>
+            <a class="archive-post-title" href="/2024/11/02/sentry-localization/sentry-localization-0/">哨兵定位建图简明教程一 卷首引言</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/02</span>
+            <a class="archive-post-title" href="/2024/11/02/sentry-localization/sentry-localization-1/">哨兵定位建图简明教程二 你需要了解的</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/02</span>
+            <a class="archive-post-title" href="/2024/11/02/sentry-localization/sentry-localization-2/">哨兵定位建图简明教程三 前情提要</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/02</span>
+            <a class="archive-post-title" href="/2024/11/02/modern-cpp/cpp-develop-env/">cpp系开发环境配置</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/02</span>
+            <a class="archive-post-title" href="/2024/11/02/sentry-localization/sentry-localization-3/">哨兵定位建图简明教程四 你的SLAM首选，FAST-LIO</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/02</span>
+            <a class="archive-post-title" href="/2024/11/02/sentry-localization/sentry-localization-5/">哨兵定位建图简明教程六 我与你不过是TF树上的两个节点</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/02</span>
+            <a class="archive-post-title" href="/2024/11/02/sentry-localization/sentry-localization-4/">哨兵定位建图简明教程五 二次开发，你需要升级的技能点</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/02</span>
+            <a class="archive-post-title" href="/2024/11/02/sentry-localization/sentry-localization-6/">哨兵定位建图简明教程七 拒绝定点投放，我们使用重定位</a>
+        </li>
+    
         
         <li class="archive-post-item">
             <span class="archive-post-date">06/10</span>
@@ -884,6 +1330,11 @@
         <span class="sidebar-category-name" data-categories="web">
             <span class="iconfont-archer">&#xe60a;</span>
             web
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="sentry-localization">
+            <span class="iconfont-archer">&#xe60a;</span>
+            sentry-localization
         </span>
     
     </div>

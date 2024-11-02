@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="zh">
+    <!-- title -->
+
+
+    
+
+<!-- keywords -->
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="author" content="creeper5820">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="creeper5820">
+    
+        <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
+    
+    <meta name="description" content="">
+    <meta name="description" content="开发系统我们首先限定，开发使用的系统是ubuntu，或者其他debian系的系统，使用apt作为包管理软件，为此，我们需要安装一个ubuntu系统。 为什么要使用ubuntu系统，原因有很多，它有着开箱即用的包管理支持，可以使用指令来下载你需要的所有依赖库，常用软件也是如此，再者，Linux系统所耗性能一般较小，内存不会吃那么紧，而ubuntu又是众多linux发行版中比较完备的一款（其实就是臃肿">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cpp系开发环境配置">
+<meta property="og:url" content="https://creeper5820.cn/2024/11/02/modern-cpp/cpp-develop-env/index.html">
+<meta property="og:site_name" content="Creeper5820">
+<meta property="og:description" content="开发系统我们首先限定，开发使用的系统是ubuntu，或者其他debian系的系统，使用apt作为包管理软件，为此，我们需要安装一个ubuntu系统。 为什么要使用ubuntu系统，原因有很多，它有着开箱即用的包管理支持，可以使用指令来下载你需要的所有依赖库，常用软件也是如此，再者，Linux系统所耗性能一般较小，内存不会吃那么紧，而ubuntu又是众多linux发行版中比较完备的一款（其实就是臃肿">
+<meta property="og:locale">
+<meta property="og:image" content="https://creeper5820.cn/images/modern-cpp/cpp-develop-env/vscode-icon.png">
+<meta property="og:image" content="https://creeper5820.cn/images/modern-cpp/cpp-develop-env/title-bar-style.png">
+<meta property="og:image" content="https://creeper5820.cn/images/modern-cpp/cpp-develop-env/settings.png">
+<meta property="og:image" content="https://creeper5820.cn/images/modern-cpp/cpp-develop-env/clangd.png">
+<meta property="og:image" content="https://creeper5820.cn/images/modern-cpp/cpp-develop-env/cmake.png">
+<meta property="article:published_time" content="2024-11-02T08:25:55.000Z">
+<meta property="article:modified_time" content="2024-11-02T08:44:00.383Z">
+<meta property="article:author" content="creeper5820">
+<meta property="article:tag" content="c&#x2F;cpp">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://creeper5820.cn/images/modern-cpp/cpp-develop-env/vscode-icon.png">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="icon" href="https://i2.mjj.rip/2024/06/09/f19a4ac175e0ce6ab08fec61fd7a4440.png">
+    
+    <title>cpp系开发环境配置 · Creeper5820 WorkStation</title>
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+    (function (w) {
+        'use strict'
+        // rel=preload support test
+        if (!w.loadCSS) {
+            w.loadCSS = function () {}
+        }
+        // define on the loadCSS obj
+        var rp = (loadCSS.relpreload = {})
+        // rel=preload feature support test
+        // runs once and returns a function for compat purposes
+        rp.support = (function () {
+            var ret
+            try {
+                ret = w.document.createElement('link').relList.supports('preload')
+            } catch (e) {
+                ret = false
+            }
+            return function () {
+                return ret
+            }
+        })()
+
+        // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+        // then change that media back to its intended value on load
+        rp.bindMediaToggle = function (link) {
+            // remember existing media attr for ultimate state, or default to 'all'
+            var finalMedia = link.media || 'all'
+
+            function enableStylesheet() {
+                link.media = finalMedia
+            }
+
+            // bind load handlers to enable media
+            if (link.addEventListener) {
+                link.addEventListener('load', enableStylesheet)
+            } else if (link.attachEvent) {
+                link.attachEvent('onload', enableStylesheet)
+            }
+
+            // Set rel and non-applicable media type to start an async request
+            // note: timeout allows this to happen async to let rendering continue in IE
+            setTimeout(function () {
+                link.rel = 'stylesheet'
+                link.media = 'only x'
+            })
+            // also enable media after 3 seconds,
+            // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+            setTimeout(enableStylesheet, 3000)
+        }
+
+        // loop through link elements in DOM
+        rp.poly = function () {
+            // double check this to prevent external calls from running
+            if (rp.support()) {
+                return
+            }
+            var links = w.document.getElementsByTagName('link')
+            for (var i = 0; i < links.length; i++) {
+                var link = links[i]
+                // qualify links to those with rel=preload and as=style attrs
+                if (
+                    link.rel === 'preload' &&
+                    link.getAttribute('as') === 'style' &&
+                    !link.getAttribute('data-loadcss')
+                ) {
+                    // prevent rerunning on link
+                    link.setAttribute('data-loadcss', true)
+                    // bind listeners to toggle media back
+                    rp.bindMediaToggle(link)
+                }
+            }
+        }
+
+        // if unsupported, run the polyfill
+        if (!rp.support()) {
+            // run once at least
+            rp.poly()
+
+            // rerun poly on an interval until onload
+            var run = w.setInterval(rp.poly, 500)
+            if (w.addEventListener) {
+                w.addEventListener('load', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            } else if (w.attachEvent) {
+                w.attachEvent('onload', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            }
+        }
+
+        // commonjs
+        if (typeof exports !== 'undefined') {
+            exports.loadCSS = loadCSS
+        } else {
+            w.loadCSS = loadCSS
+        }
+    })(typeof global !== 'undefined' ? global : this)
+</script>
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+</style>
+
+    <link rel="preload" href="/css/style.css?v=20211217" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="/css/dark.css?v=20211217" as="style">
+    <link rel="stylesheet" href="/css/dark.css">
+    <link rel="stylesheet" href="/css/mobile.css?v=20211217" media="(max-width: 960px)">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" as="script">
+    <link rel="preload" href="/scripts/main.js?v=20211217" as="script">
+    <link rel="preload" href="/scripts/dark.js?v=20211217" as="script">
+    <link rel="preload" href="/font/Oswald-Regular.ttf" as="font" crossorigin>
+    <link rel="preload" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" as="font" crossorigin>
+    <!-- algolia -->
+    
+    <!-- 百度统计  -->
+    
+    <!-- Google tag (gtag.js) -->
+    
+
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ == undefined) {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js" />')
+        }
+    </script>
+    
+        <body class="post-body">
+    
+        <!-- header -->
+        <header class="header header-mobile">
+    <!-- top read progress line -->
+    <div class="header-element">
+        <div class="read-progress"></div>
+    </div>
+    <!-- sidebar menu button -->
+    <div class="header-element">
+        
+            <div class="header-sidebar-menu">
+        
+            
+                <div style="padding-left: 1px;">&#xe775;</div>
+            
+        </div>
+    </div>
+    <!-- header actions -->
+    <div class="header-actions">
+        <!-- theme mode switch button -->
+        <span class="header-theme-btn header-element">
+            <i class="fas fa-adjust"></i>
+        </span>
+        <!-- back to home page text -->
+        <span class="home-link header-element">
+            <a href=/>Creeper5820 WorkStation</a>
+        </span>
+    </div>
+    <!-- toggle banner for post layout -->
+    
+        
+            <div class="banner">
+        
+            <div class="blog-title header-element">
+                <a href="/">Creeper5820 WorkStation</a>
+            </div>
+            <div class="post-title header-element">
+                <a href="#" class="post-name">cpp系开发环境配置</a>
+            </div>
+        </div>
+    
+</header>
+
+        <!-- fixed footer -->
+        <footer class="footer-fixed">
+    <!-- back to top button -->
+    <div class="footer-fixed-element">
+        
+            <div class="back-top back-top-hidden">
+        
+        
+            <div>&#xe639;</div>
+        
+        </div>
+    </div>
+</footer>
+
+        <!-- wrapper -->
+        <div class="wrapper">
+            <div class="site-intro" style="
+
+
+
+
+
+
+
+    height:50vh;
+
+">
+    
+    <!-- 主页  -->
+    
+        
+    <!-- 404页  -->
+    
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(https://i2.mjj.rip/2024/06/09/6990ae0f50720257f27ec8106ef0ed68.png)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+                cpp系开发环境配置
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+                
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页 meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="c/cpp">c/cpp</a>
+    
+</div>
+
+                
+                <!-- 文章字数统计 -->
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">1.1k</span>阅读时长: <span class="post-count reading-time">4 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <!-- 撰写日期 -->
+                    <span class="iconfont-archer post-intro-calander">&#xe676;</span>
+                    <span class="post-intro-time">2024/11/02</span>
+                    <!-- busuanzi -->
+                    
+                        <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                            <span class="iconfont-archer post-intro-busuanzi">&#xe602;</span>
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    
+                    <!-- 文章分享 -->
+                    <span class="share-wrapper">
+                        <span class="iconfont-archer share-icon">&#xe71d;</span>
+                        <span class="share-text">Share</span>
+                        <ul class="share-list">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+
+            <script>
+  // get user agent
+  function getBrowserVersions() {
+    var u = window.navigator.userAgent
+    return {
+      userAgent: u,
+      trident: u.indexOf('Trident') > -1, //IE内核
+      presto: u.indexOf('Presto') > -1, //opera内核
+      webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+      gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+      mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+      ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+      android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+      iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+      iPad: u.indexOf('iPad') > -1, //是否为iPad
+      webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+      weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+      uc: u.indexOf('UCBrowser') > -1, //是否为android下的UC浏览器
+    }
+  }
+  var browser = {
+    versions: getBrowserVersions(),
+  }
+  console.log('userAgent: ' + browser.versions.userAgent)
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded')
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document
+        .getElementsByClassName('intro-title')[0]
+        .classList.add('intro-fade-in')
+      document
+        .getElementsByClassName('intro-subtitle')[0]
+        .classList.add('intro-fade-in')
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in')
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb() {
+    if (browser.versions.uc) {
+      console.log('UCBrowser')
+      fontLoaded()
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular'],
+        },
+        loading: function () {
+          // 所有字体开始加载
+          // console.log('font loading');
+        },
+        active: function () {
+          // 所有字体已渲染
+          fontLoaded()
+        },
+        inactive: function () {
+          // 字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout')
+          fontLoaded()
+        },
+        timeout: 5000, // Set the timeout to two seconds
+      })
+    }
+  }
+
+  function asyncErr() {
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document,
+      t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0]
+    o.src = u
+    if (cb) {
+      o.addEventListener(
+        'load',
+        function (e) {
+          cb(null, e)
+        },
+        false
+      )
+    }
+    if (err) {
+      o.addEventListener(
+        'error',
+        function (e) {
+          err(null, e)
+        },
+        false
+      )
+    }
+    s.parentNode.insertBefore(o, s)
+  }
+
+  var asyncLoadWithFallBack = function (arr, success, reject) {
+    var currReject = function () {
+      reject()
+      arr.shift()
+      if (arr.length) async(arr[0], success, currReject)
+    }
+
+    async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack(
+    [
+      'https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js',
+      'https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js',
+      "/lib/webfontloader.min.js",
+    ],
+    asyncCb,
+    asyncErr
+  )
+</script>
+
+            <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+            <div class="container container-unloaded">
+                <main class="main post-page">
+    <article class="article-entry">
+        <h1 id="开发系统"><a href="#开发系统" class="headerlink" title="开发系统"></a>开发系统</h1><p>我们首先限定，开发使用的系统是ubuntu，或者其他debian系的系统，使用apt作为包管理软件，为此，我们需要安装一个ubuntu系统。</p>
+<p>为什么要使用ubuntu系统，原因有很多，它有着开箱即用的包管理支持，可以使用指令来下载你需要的所有依赖库，常用软件也是如此，再者，Linux系统所耗性能一般较小，内存不会吃那么紧，而ubuntu又是众多linux发行版中比较完备的一款（其实就是臃肿），适合新人上手。</p>
+<p>至于如何安装ubuntu，这里有一个简略的教程，建议配合浏览器搜索食用：如何安稳地安装ubuntu系统</p>
+<h1 id="工具链安装"><a href="#工具链安装" class="headerlink" title="工具链安装"></a>工具链安装</h1><h2 id="安装终端工具"><a href="#安装终端工具" class="headerlink" title="安装终端工具"></a>安装终端工具</h2><p>终端是与ubuntu交互的最常用的途径，它默认的终端叫做bash，全称是 Bourne Again SHell，我们日常不会使用它，而是使用功能更为完善的zsh，这里给出一份下载的脚本，你只需要打开终端（快捷键 Ctrl+Alt+T ），把它复制进去，输入用户密码后即可安装。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh -c <span class="string">&quot;<span class="subst">$(wget https://gitee.com/Devkings/oh_my_zsh_install/raw/master/install.sh -O -)</span>&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>这里特意用了gitee的源，国内也能比较流畅地下载安装，但作为一名合格的开发者，趁手的魔法工具（禁忌）是必要的。</p>
+<p>在上面的指令结束后，我们再次输入下面的指令，用于切换默认终端和风格。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sed -i <span class="string">&#x27;s/ZSH_THEME=\&quot;[a-z0-9\-]*\&quot;/ZSH_THEME=&quot;af-magic&quot;/g&#x27;</span> ~/.zshrc</span><br><span class="line">sudo chsh -s /bin/zsh</span><br></pre></td></tr></table></figure>
+
+<p>这个zsh插件叫做 oh-my-zsh ，要是不满意其风格，可以搜索一下如何替换 oh-my-zsh 的风格。<br>编译和项目管理工具</p>
+<p>开发CPP项目，我们首要选择 GCC 和 CMAKE，用于编译代码和管理项目。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># basic develop packages</span></span><br><span class="line">sudo apt-get install -y \</span><br><span class="line">    build-essential lsb-release \</span><br><span class="line">    gnupg software-properties-common \</span><br><span class="line">    wget curl unzip git zsh \</span><br><span class="line">    gcc g++ gdb make cmake</span><br></pre></td></tr></table></figure>
+
+<p>把这些指令一股脑扔进终端吧，你会得到你想要的东西（真物）的。</p>
+<p>你可能需要一些时间来等待下载，这取决于网络状况，如果你在一间挤满了人的教室里无趣地配置你的环境，还用着校园网，那么你这辈子可能也等不到工具下载好的那一刻了 —— 听我的，给你的电脑网卡用点好的网络吧。</p>
+<h2 id="语言服务器和代码格式化工具"><a href="#语言服务器和代码格式化工具" class="headerlink" title="语言服务器和代码格式化工具"></a>语言服务器和代码格式化工具</h2><p>我用bash写了点蹩脚的下载脚本，它会帮你下载最新版的clangd，这是一个语言服务器，能够为你提供代码补全，编写提示，我的意思是，它比微软在vscode提供的宛若老年痴呆般的 C&#x2F;C++ 插件好上数百倍。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line">sudo apt-get update -y</span><br><span class="line">sudo apt-get install -y gnupg wget</span><br><span class="line"></span><br><span class="line">wget -O /tmp/llvm-snapshot.gpg.key https://apt.llvm.org/llvm-snapshot.gpg.key</span><br><span class="line">sudo apt-key add /tmp/llvm-snapshot.gpg.key</span><br><span class="line"><span class="built_in">rm</span> /tmp/llvm-snapshot.gpg.key</span><br><span class="line"></span><br><span class="line">sudo <span class="built_in">touch</span> /etc/apt/sources.list.d/llvm-apt.list</span><br><span class="line">sudo <span class="built_in">echo</span> <span class="string">&quot;deb https://mirrors.tuna.tsinghua.edu.cn/llvm-apt/jammy/ llvm-toolchain-jammy main&quot;</span> |\</span><br><span class="line">sudo <span class="built_in">tee</span> -a  /etc/apt/sources.list.d/llvm-apt.list</span><br><span class="line">sudo apt-get update -y</span><br><span class="line"></span><br><span class="line">version=`apt-cache search clangd- | grep clangd- | awk -F<span class="string">&#x27; &#x27;</span> <span class="string">&#x27;&#123;print $1&#125;&#x27;</span> | <span class="built_in">sort</span> -V | <span class="built_in">tail</span> -1 | <span class="built_in">cut</span> -d- -f2`</span><br><span class="line">sudo apt-get install -y clangd-<span class="variable">$version</span> clang-format-<span class="variable">$version</span></span><br><span class="line">sudo <span class="built_in">ln</span> -s /usr/bin/clangd-<span class="variable">$version</span> /usr/bin/clangd</span><br><span class="line">sudo <span class="built_in">ln</span> -s /usr/bin/clang-format-<span class="variable">$version</span> /usr/bin/clang-format</span><br></pre></td></tr></table></figure>
+
+<h2 id="超高校级的代码编辑器"><a href="#超高校级的代码编辑器" class="headerlink" title="超高校级的代码编辑器"></a>超高校级的代码编辑器</h2><p>我们做机器人开发的，一下要写cpp代码，一下要写python脚本，一下又要用终端，编辑 yaml 等配置文件，能够流畅在各种开发环境中转火的编辑器，我想非 vscode 莫属，点击下方下载链接，下载属于你的代码编辑器吧！</p>
+<p><a target="_blank" rel="noopener" href="https://code.visualstudio.com/">正版vscod, 点击即送</a></p>
+<blockquote>
+<p>我的 vscode 不可能这么可爱！</p>
+</blockquote>
+<p><img src="/images/modern-cpp/cpp-develop-env/vscode-icon.png"></p>
+<p>下载完毕之后，自行搜索如何设置中文。</p>
+<p>在设置中搜索这条配置，选择 “custom”，这样你的vscode就不会顶着一个格格不入的标题栏了。</p>
+<p><img src="/images/modern-cpp/cpp-develop-env/title-bar-style.png"></p>
+<p>设置在左下角那个齿轮图标里面，你也可以按下快捷键 Ctrl+,来打开设置。</p>
+<p><img src="/images/modern-cpp/cpp-develop-env/settings.png"></p>
+<p>现在我们来下载一些插件，我们使用的插件不多，只需要两个，就能得到完整的cpp开发体验。</p>
+<p><img src="/images/modern-cpp/cpp-develop-env/clangd.png"></p>
+<p><img src="/images/modern-cpp/cpp-develop-env/cmake.png"></p>
+<p>在插件搜索框那里输入名字就可以轻松找到这几个插件，注意，CMake插件要下载图片中的，不要下载微软提供的那个CMake插件。</p>
+<h1 id="你好，世界"><a href="#你好，世界" class="headerlink" title="你好，世界"></a>你好，世界</h1>
+    </article>
+    <!-- license -->
+    
+        <div class="license-wrapper">
+            <p>原文作者：<a href="https://creeper5820.cn">creeper5820</a>
+            <p>原文链接：<a href="https://creeper5820.cn/2024/11/02/modern-cpp/cpp-develop-env/">https://creeper5820.cn/2024/11/02/modern-cpp/cpp-develop-env/</a>
+            <p>发表日期：<a href="https://creeper5820.cn/2024/11/02/modern-cpp/cpp-develop-env/">November 2nd 2024, 8:25:55 am</a>
+            <p>更新日期：<a href="https://creeper5820.cn/2024/11/02/modern-cpp/cpp-develop-env/">November 2nd 2024, 8:44:00 am</a>
+            <p>版权声明：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/2024/11/02/sentry-localization/sentry-localization-0/" title="哨兵定位建图简明教程一 卷首引言">
+                    <div class="prevTitle">哨兵定位建图简明教程一 卷首引言</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- comment -->
+    
+        <div class="post-comment">
+            <!-- 来必力 City 版安装代码 -->
+
+
+            
+
+            
+
+            
+
+            <!-- utteranc评论 -->
+
+
+            <!-- partial('_partial/comment/changyan') -->
+            <!--PC版-->
+
+
+            
+            
+
+            
+
+        </div>
+    
+    <!-- timeliness note -->
+    <!-- idea from: https://hexo.fluid-dev.com/posts/hexo-injector/#%E6%96%87%E7%AB%A0%E6%97%B6%E6%95%88%E6%80%A7%E6%8F%90%E7%A4%BA -->
+    
+    <!-- Mathjax -->
+    
+</main>
+
+                <!-- profile -->
+                
+            </div>
+            <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+        <div class="social">
+            
+    
+        
+            
+                <a href="mailto:cqq1960180796@163.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/creeper5820" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            
+                <a href="https://space.bilibili.com/237226552/?spm_id_from=333.999.0.0" class="iconfont-archer bilibili" target="_blank" title=bilibili></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+
+        </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- website approve for Chinese user -->
+    
+        <div class="website-approve">
+            
+            
+                
+                <img class="beian-img" src="/assets/beian.png" />
+                <span id="beian-approve" class="beian-approve">
+                    <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=赣ICP备2023004925号-1" target="_blank">京公网安备 赣ICP备2023004925号-1号</a>
+                </span>
+            
+        </div>
+    
+    <!-- 不蒜子  -->
+    
+        <div class="busuanzi-container">
+            
+             
+                <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+            
+        </div>
+    	
+</footer>
+
+        </div>
+        <!-- toc -->
+        
+            <div class="toc-wrapper toc-wrapper-loding" style=
+
+
+
+
+
+
+
+    top:50vh;
+
+>
+                <div class="toc-catalog">
+                    <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+                </div>
+                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BC%80%E5%8F%91%E7%B3%BB%E7%BB%9F"><span class="toc-number">1.</span> <span class="toc-text">开发系统</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B7%A5%E5%85%B7%E9%93%BE%E5%AE%89%E8%A3%85"><span class="toc-number">2.</span> <span class="toc-text">工具链安装</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E7%BB%88%E7%AB%AF%E5%B7%A5%E5%85%B7"><span class="toc-number">2.1.</span> <span class="toc-text">安装终端工具</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%AD%E8%A8%80%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%92%8C%E4%BB%A3%E7%A0%81%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%B7%A5%E5%85%B7"><span class="toc-number">2.2.</span> <span class="toc-text">语言服务器和代码格式化工具</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B6%85%E9%AB%98%E6%A0%A1%E7%BA%A7%E7%9A%84%E4%BB%A3%E7%A0%81%E7%BC%96%E8%BE%91%E5%99%A8"><span class="toc-number">2.3.</span> <span class="toc-text">超高校级的代码编辑器</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BD%A0%E5%A5%BD%EF%BC%8C%E4%B8%96%E7%95%8C"><span class="toc-number">3.</span> <span class="toc-text">你好，世界</span></a></li></ol>
+            </div>
+        
+        <!-- sidebar -->
+        <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+        <div class="sidebar-panel-archives">
+    <!-- 在 ejs 中将 archive 按照时间排序 -->
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 15
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+        
+            
+            
+            <div class="archive-year"> 2024 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/02</span>
+            <a class="archive-post-title" href="/2024/11/02/sentry-localization/sentry-localization-0/">哨兵定位建图简明教程一 卷首引言</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/02</span>
+            <a class="archive-post-title" href="/2024/11/02/sentry-localization/sentry-localization-1/">哨兵定位建图简明教程二 你需要了解的</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/02</span>
+            <a class="archive-post-title" href="/2024/11/02/sentry-localization/sentry-localization-2/">哨兵定位建图简明教程三 前情提要</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/02</span>
+            <a class="archive-post-title" href="/2024/11/02/modern-cpp/cpp-develop-env/">cpp系开发环境配置</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/02</span>
+            <a class="archive-post-title" href="/2024/11/02/sentry-localization/sentry-localization-3/">哨兵定位建图简明教程四 你的SLAM首选，FAST-LIO</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/02</span>
+            <a class="archive-post-title" href="/2024/11/02/sentry-localization/sentry-localization-5/">哨兵定位建图简明教程六 我与你不过是TF树上的两个节点</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/02</span>
+            <a class="archive-post-title" href="/2024/11/02/sentry-localization/sentry-localization-4/">哨兵定位建图简明教程五 二次开发，你需要升级的技能点</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/02</span>
+            <a class="archive-post-title" href="/2024/11/02/sentry-localization/sentry-localization-6/">哨兵定位建图简明教程七 拒绝定点投放，我们使用重定位</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/10</span>
+            <a class="archive-post-title" href="/2024/06/10/referee-develop/">裁判系统交互开发引导</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/08</span>
+            <a class="archive-post-title" href="/2024/06/08/develop-prepare/">ROS2开发环境配置</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/08</span>
+            <a class="archive-post-title" href="/2024/06/08/ubuntu-installation/">如何安稳地安装ubuntu系统</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/13</span>
+            <a class="archive-post-title" href="/2024/05/13/debug-ros2-with-foxglove/">替代Rviz的Foxglove可视化及调参平台</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/13</span>
+            <a class="archive-post-title" href="/2024/05/13/server-based-on-frp-and-nginx/">经济与体验的权衡，使用云服务器和Frp的本地服务穿透方案</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/13</span>
+            <a class="archive-post-title" href="/2024/05/13/about-ubuntu-server-network/">Ubuntu Server网络设置</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/12</span>
+            <a class="archive-post-title" href="/2024/05/12/can-tutorial/">简明CAN通讯驱动M2006电机指引</a>
+        </li>
+    
+    </div>
+</div>
+
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+        
+            <span class="sidebar-tag-name" data-tags="ubuntu">
+                <span class="iconfont-archer">&#xe606;</span>
+                ubuntu
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="server">
+                <span class="iconfont-archer">&#xe606;</span>
+                server
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="netplan">
+                <span class="iconfont-archer">&#xe606;</span>
+                netplan
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="ros2">
+                <span class="iconfont-archer">&#xe606;</span>
+                ros2
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="foxglove">
+                <span class="iconfont-archer">&#xe606;</span>
+                foxglove
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="c/cpp">
+                <span class="iconfont-archer">&#xe606;</span>
+                c/cpp
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="embedded">
+                <span class="iconfont-archer">&#xe606;</span>
+                embedded
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="can">
+                <span class="iconfont-archer">&#xe606;</span>
+                can
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="robomaster">
+                <span class="iconfont-archer">&#xe606;</span>
+                robomaster
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="nginx">
+                <span class="iconfont-archer">&#xe606;</span>
+                nginx
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="frp">
+                <span class="iconfont-archer">&#xe606;</span>
+                frp
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="web">
+                <span class="iconfont-archer">&#xe606;</span>
+                web
+            </span>
+        
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+        缺失模块，请参考主题文档进行安装配置：https://github.com/fi3ework/hexo-theme-archer#%E5%AE%89%E8%A3%85%E4%B8%BB%E9%A2%98
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="ubuntu">
+            <span class="iconfont-archer">&#xe60a;</span>
+            ubuntu
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="ros2">
+            <span class="iconfont-archer">&#xe60a;</span>
+            ros2
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="embedded">
+            <span class="iconfont-archer">&#xe60a;</span>
+            embedded
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="c/cpp">
+            <span class="iconfont-archer">&#xe60a;</span>
+            c/cpp
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="web">
+            <span class="iconfont-archer">&#xe60a;</span>
+            web
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="sentry-localization">
+            <span class="iconfont-archer">&#xe60a;</span>
+            sentry-localization
+        </span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+
+    </div>
+</div>
+
+        <!-- site-meta -->
+        <script>
+    var siteMetaRoot = "/"
+    if (siteMetaRoot === "undefined") {
+        siteMetaRoot = '/'
+    }
+    var siteMeta = {
+        url: "https://creeper5820.cn",
+        root: siteMetaRoot,
+        author: "creeper5820"
+    }
+</script>
+
+        <!-- import experimental options here -->
+        <!-- Custom Font -->
+
+
+        <!-- main func -->
+        <script src="/scripts/main.js?v=20211217"></script>
+        <!-- dark mode -->
+        <script src="/scripts/dark.js?v=20211217"></script>
+        <!-- fancybox -->
+        <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" defer></script>
+        <!-- algolia -->
+        
+        <!-- busuanzi -->
+        
+            <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+        
+        <!-- CNZZ -->
+        
+        <!-- async load share.js -->
+        
+            <script src="/scripts/share.js?v=20211217" async></script>
+        
+        <!-- mermaid -->
+        
+    </body>
+</html>
